@@ -21,6 +21,7 @@
 
 import random
 import math
+import time
 
 from PyQt5.QtChart import (QAreaSeries, QBarSet, QChart, QChartView,
         QLineSeries, QPieSeries, QScatterSeries, QSplineSeries,
@@ -81,7 +82,7 @@ class ThemeWidget(QWidget):
 
         self.m_charts = []
         self.timer = QTimer()
-        self.timer.setInterval(12.5)
+        self.timer.setInterval(25)
         self.timer.start()
         self.m_listCount = 3
         self.m_valueMax = 10
@@ -134,7 +135,10 @@ class ThemeWidget(QWidget):
 
     def onTimerOut(self):
         # print('time out')
+        start = time.clock()
         self.myChart.handleUpdate()
+        elapsed = (time.clock() - start)
+        print("Time used: %.3fs" % elapsed)
 
     def generateRandomData(self, listCount, valueMax, valueCount):
         random.seed()
