@@ -22,6 +22,7 @@
 import random
 import math
 import time
+import threading
 
 from PyQt5.QtChart import (QAreaSeries, QBarSet, QChart, QChartView,
         QLineSeries, QPieSeries, QScatterSeries, QSplineSeries,
@@ -82,8 +83,8 @@ class ThemeWidget(QWidget):
 
         self.m_charts = []
         self.timer = QTimer()
-        self.timer.setInterval(25)
-        self.timer.start()
+        # self.timer.setInterval(25)
+        # self.timer.start()
         self.m_listCount = 3
         self.m_valueMax = 10
         self.m_valueCount = 7
@@ -123,8 +124,14 @@ class ThemeWidget(QWidget):
         self.m_antialiasCheckBox.setChecked(True)
         self.updateUI()
 
-    def test(self, event):
-        print(str(event))
+        receiveProcess = threading.Thread(target=self.test)
+        receiveProcess.setDaemon(True)
+        receiveProcess.start()
+
+    def test(self):
+        while True:
+            self.onTimerOut()
+            time.sleep(0.025)
 
     def connectSignals(self):
         self.m_themeComboBox.currentIndexChanged.connect(self.updateUI)
@@ -137,6 +144,7 @@ class ThemeWidget(QWidget):
         # print('time out')
         start = time.clock()
         self.myChart.handleUpdate()
+        QApplication.processEvents()
         elapsed = (time.clock() - start)
         print("Time used: %.3fs" % elapsed)
 
