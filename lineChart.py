@@ -142,10 +142,10 @@ class ThemeWidget(QWidget):
 
     def onTimerOut(self):
         # print('time out')
-        start = time.clock()
+        start = time.process_time()
         self.myChart.handleUpdate()
         QApplication.processEvents()
-        elapsed = (time.clock() - start)
+        elapsed = (time.process_time() - start)
         print("Time used: %.3fs" % elapsed)
 
     def generateRandomData(self, listCount, valueMax, valueCount):
