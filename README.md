@@ -8,3 +8,8 @@ This is a demo of using pyqt5 and QChart for show linechart in realtime applicat
 
 ## update rate
 The elapsed time of each update function is about 0.02-0.024 second, so the refresh frequency should be less than 40Hz.
+
+## requirements
+
+ - [PyQt5](https://pypi.org/project/PyQt5/) 
+ - [PyQtChart](https://pypi.org/project/PyQtChart/)
